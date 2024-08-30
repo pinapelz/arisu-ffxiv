@@ -11,7 +11,7 @@ pub fn handle_eureka_arisu(current_time: i64) -> String {
     let mut return_str = String::from("-- Notable Eureka Weather --");
     if current_pyros_weather == Weather::Blizzards {
         return_str.push_str(
-            &("\n - Its Skoll Weather Right Now (Blizzards)! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Its Skoll Weather Right Now (Blizzards)! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     } else {
         let next_skoll_weather = find_next_weather_occurance("Eureka Pyros", current_time, Weather::Blizzards);
@@ -24,7 +24,7 @@ pub fn handle_eureka_arisu(current_time: i64) -> String {
 
     if current_pagos_weather == Weather::Fog {
         return_str.push_str(
-            &("\n - Its Crab Weather Right Now (Fog)! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Its Crab Weather Right Now (Fog)! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     } else {
         let next_cassie_weather = find_next_weather_occurance("Eureka Pagos", current_time, Weather::Fog);
@@ -35,7 +35,7 @@ pub fn handle_eureka_arisu(current_time: i64) -> String {
     }
     if current_pagos_weather == Weather::Blizzards {
         return_str.push_str(
-            &("\n - Its Cassie Weather Right Now (Blizzards)! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Its Cassie Weather Right Now (Blizzards)! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     } else {
         let next_cassie_weather = find_next_weather_occurance("Eureka Pagos", current_time, Weather::Blizzards);
@@ -53,7 +53,7 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
     let bsf_weather = get_weather_by_time("Bozjan Southern Front", current_time);
     if bsf_weather == Weather::DustStorms {
         return_str.push_str(
-            &("\n - Dust Storms (ZONE 2) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Dust Storms (ZONE 2) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     }
     else{
@@ -66,7 +66,7 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
 
     if bsf_weather == Weather::Wind {
         return_str.push_str(
-            &("\n - Wind (ZONE 3) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Wind (ZONE 3) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     }
     else{
@@ -79,7 +79,7 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
 
     if bsf_weather == Weather::Thunder {
         return_str.push_str(
-            &("\n - Thunder (ZONE 1) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Thunder (ZONE 1) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     }
     else{
@@ -95,7 +95,7 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
 
     if zadnor_weather == Weather::Snow {
         return_str.push_str(
-            &("\n - Snow (ZONE 3) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Snow (ZONE 3) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     }
     else{
@@ -108,7 +108,7 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
 
     if zadnor_weather == Weather::Wind {
         return_str.push_str(
-            &("\n - Wind (ZONE 1) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Wind (ZONE 1) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     }
     else{
@@ -121,7 +121,7 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
 
     if zadnor_weather == Weather::Rain {
         return_str.push_str(
-            &("\n - Rain (ZONE 2) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Rain (ZONE 2) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     }
     else{
@@ -134,7 +134,7 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
 
     if zadnor_weather == Weather::Thunder {
         return_str.push_str(
-            &("\n - Thunder (ZONE 2) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.0))
+            &("\n - Thunder (ZONE 2) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
         );
     }
     else{
