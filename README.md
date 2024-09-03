@@ -4,3 +4,5 @@ A very simple Rust CLI tool to get some helpful in-game information about Final 
 - bozja: Get time left until all "special" weather in Zadnor and Bozjan Southern Front
 
 Mostly made for personal convenicence, but feel free to use it if you find it helpful!
+
+[Windows and Linux binaries available](https://github.com/pinapelz/arisu-ffxiv/releases)
