@@ -1,6 +1,8 @@
-use ffxiv_chronowatcher::eorzean_weather::{find_next_weather_occurance, get_weather_by_time, calculate_current_weather_interval, Weather};
+use ffxiv_chronowatcher::eorzean_weather::{
+    calculate_current_weather_interval, find_next_weather_occurance, get_weather_by_time, Weather,
+};
 
-mod utils{
+mod utils {
     pub mod time_converter;
 }
 use utils::time_converter::{convert_to_time_relative_string, convert_to_time_string};
@@ -11,37 +13,52 @@ pub fn handle_eureka_arisu(current_time: i64) -> String {
     let mut return_str = String::from("-- Notable Eureka Weather --");
     if current_pyros_weather == Weather::Blizzards {
         return_str.push_str(
-            &("\n - Its Skoll Weather Right Now (Blizzards)! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Its Skoll Weather Right Now (Blizzards)! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
     } else {
-        let next_skoll_weather = find_next_weather_occurance("Eureka Pyros", current_time, Weather::Blizzards);
+        let next_skoll_weather =
+            find_next_weather_occurance("Eureka Pyros", current_time, Weather::Blizzards);
         return_str.push_str(
-            &("\n - Skoll Weather (Blizzards) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_skoll_weather.start_time) + " (" + &convert_to_time_string(next_skoll_weather.start_time) + ") ")
+            &("\n - Skoll Weather (Blizzards) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_skoll_weather.start_time)
+                + " ("
+                + &convert_to_time_string(next_skoll_weather.start_time)
+                + ") "),
         );
     }
     let current_pagos_weather = get_weather_by_time("Eureka Pagos", current_time);
 
     if current_pagos_weather == Weather::Fog {
         return_str.push_str(
-            &("\n - Its Crab Weather Right Now (Fog)! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Its Crab Weather Right Now (Fog)! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
     } else {
-        let next_cassie_weather = find_next_weather_occurance("Eureka Pagos", current_time, Weather::Fog);
+        let next_cassie_weather =
+            find_next_weather_occurance("Eureka Pagos", current_time, Weather::Fog);
         return_str.push_str(
-            &("\n - Crab Weather (Fog) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_cassie_weather.start_time) + " (" + &convert_to_time_string(next_cassie_weather.start_time) + ") ")
+            &("\n - Crab Weather (Fog) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_cassie_weather.start_time)
+                + " ("
+                + &convert_to_time_string(next_cassie_weather.start_time)
+                + ") "),
         );
     }
     if current_pagos_weather == Weather::Blizzards {
         return_str.push_str(
-            &("\n - Its Cassie Weather Right Now (Blizzards)! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Its Cassie Weather Right Now (Blizzards)! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
     } else {
-        let next_cassie_weather = find_next_weather_occurance("Eureka Pagos", current_time, Weather::Blizzards);
+        let next_cassie_weather =
+            find_next_weather_occurance("Eureka Pagos", current_time, Weather::Blizzards);
         return_str.push_str(
-            &("\n - Cassie Weather (Blizzards) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_cassie_weather.start_time) + " (" + &convert_to_time_string(next_cassie_weather.start_time) + ") ")
+            &("\n - Cassie Weather (Blizzards) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_cassie_weather.start_time)
+                + " ("
+                + &convert_to_time_string(next_cassie_weather.start_time)
+                + ") "),
         );
     }
     return_str
@@ -53,40 +70,52 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
     let bsf_weather = get_weather_by_time("Bozjan Southern Front", current_time);
     if bsf_weather == Weather::DustStorms {
         return_str.push_str(
-            &("\n - Dust Storms (ZONE 2) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Dust Storms (ZONE 2) Now! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
-    }
-    else{
-        let next_bsf_dust = find_next_weather_occurance("Bozjan Southern Front", current_time, Weather::DustStorms);
+    } else {
+        let next_bsf_dust =
+            find_next_weather_occurance("Bozjan Southern Front", current_time, Weather::DustStorms);
         return_str.push_str(
-            &("\n - Dust Storms (ZONE 2) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_bsf_dust.start_time) + " (" + &convert_to_time_string(next_bsf_dust.start_time) + ") ")
+            &("\n - Dust Storms (ZONE 2) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_bsf_dust.start_time)
+                + " ("
+                + &convert_to_time_string(next_bsf_dust.start_time)
+                + ") "),
         );
     }
 
     if bsf_weather == Weather::Wind {
         return_str.push_str(
-            &("\n - Wind (ZONE 3) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Wind (ZONE 3) Now! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
-    }
-    else{
-        let next_bsf_wind = find_next_weather_occurance("Bozjan Southern Front", current_time, Weather::Wind);
+    } else {
+        let next_bsf_wind =
+            find_next_weather_occurance("Bozjan Southern Front", current_time, Weather::Wind);
         return_str.push_str(
-            &("\n - Wind (ZONE 3) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_bsf_wind.start_time) + " (" + &convert_to_time_string(next_bsf_wind.start_time) + ") ")
+            &("\n - Wind (ZONE 3) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_bsf_wind.start_time)
+                + " ("
+                + &convert_to_time_string(next_bsf_wind.start_time)
+                + ") "),
         );
     }
 
     if bsf_weather == Weather::Thunder {
         return_str.push_str(
-            &("\n - Thunder (ZONE 1) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Thunder (ZONE 1) Now! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
-    }
-    else{
-        let next_bsf_thunder = find_next_weather_occurance("Bozjan Southern Front", current_time, Weather::Thunder);
+    } else {
+        let next_bsf_thunder =
+            find_next_weather_occurance("Bozjan Southern Front", current_time, Weather::Thunder);
         return_str.push_str(
-            &("\n - Thunder (ZONE 1) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_bsf_thunder.start_time) + " (" + &convert_to_time_string(next_bsf_thunder.start_time) + ") ")
+            &("\n - Thunder (ZONE 1) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_bsf_thunder.start_time)
+                + " ("
+                + &convert_to_time_string(next_bsf_thunder.start_time)
+                + ") "),
         );
     }
 
@@ -95,53 +124,66 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
 
     if zadnor_weather == Weather::Snow {
         return_str.push_str(
-            &("\n - Snow (ZONE 3) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Snow (ZONE 3) Now! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
-    }
-    else{
+    } else {
         let next_zadnor_snow = find_next_weather_occurance("Zadnor", current_time, Weather::Snow);
         return_str.push_str(
-            &("\n - Snow (ZONE 3) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_zadnor_snow.start_time) + " (" + &convert_to_time_string(next_zadnor_snow.start_time) + ") ")
+            &("\n - Snow (ZONE 3) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_zadnor_snow.start_time)
+                + " ("
+                + &convert_to_time_string(next_zadnor_snow.start_time)
+                + ") "),
         );
     }
 
     if zadnor_weather == Weather::Wind {
         return_str.push_str(
-            &("\n - Wind (ZONE 1) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Wind (ZONE 1) Now! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
-    }
-    else{
+    } else {
         let next_zadnor_wind = find_next_weather_occurance("Zadnor", current_time, Weather::Wind);
         return_str.push_str(
-            &("\n - Wind (ZONE 1) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_zadnor_wind.start_time) + " (" + &convert_to_time_string(next_zadnor_wind.start_time) + ") ")
+            &("\n - Wind (ZONE 1) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_zadnor_wind.start_time)
+                + " ("
+                + &convert_to_time_string(next_zadnor_wind.start_time)
+                + ") "),
         );
     }
 
     if zadnor_weather == Weather::Rain {
         return_str.push_str(
-            &("\n - Rain (ZONE 2) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Rain (ZONE 2) Now! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
-    }
-    else{
+    } else {
         let next_zadnor_rain = find_next_weather_occurance("Zadnor", current_time, Weather::Rain);
         return_str.push_str(
-            &("\n - Rain (ZONE 2) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_zadnor_rain.start_time) + " (" + &convert_to_time_string(next_zadnor_rain.start_time) + ") ")
+            &("\n - Rain (ZONE 2) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_zadnor_rain.start_time)
+                + " ("
+                + &convert_to_time_string(next_zadnor_rain.start_time)
+                + ") "),
         );
     }
 
     if zadnor_weather == Weather::Thunder {
         return_str.push_str(
-            &("\n - Thunder (ZONE 2) Now! Ends in ".to_string() + &convert_to_time_relative_string(current_time, time_until_next_cycle.1))
+            &("\n - Thunder (ZONE 2) Now! Ends in ".to_string()
+                + &convert_to_time_relative_string(current_time, time_until_next_cycle.1)),
         );
-    }
-    else{
-        let next_zadnor_thunder = find_next_weather_occurance("Zadnor", current_time, Weather::Thunder);
+    } else {
+        let next_zadnor_thunder =
+            find_next_weather_occurance("Zadnor", current_time, Weather::Thunder);
         return_str.push_str(
-            &("\n - Thunder (ZONE 2) In: ".to_string() + &convert_to_time_relative_string(
-                current_time, next_zadnor_thunder.start_time) + " (" + &convert_to_time_string(next_zadnor_thunder.start_time) + ") ")
+            &("\n - Thunder (ZONE 2) In: ".to_string()
+                + &convert_to_time_relative_string(current_time, next_zadnor_thunder.start_time)
+                + " ("
+                + &convert_to_time_string(next_zadnor_thunder.start_time)
+                + ") "),
         );
     }
 
