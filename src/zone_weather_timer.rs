@@ -64,7 +64,7 @@ pub fn handle_eureka_arisu(current_time: i64) -> String {
     return_str
 }
 
-fn find_skoll_weather(current_time: i64) -> (bool, i64) {
+pub fn find_skoll_weather(current_time: i64) -> (bool, i64) {
     let current_pyros_weather = get_weather_by_time("Eureka Pyros", current_time);
     if current_pyros_weather == Weather::Blizzards {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
@@ -76,7 +76,7 @@ fn find_skoll_weather(current_time: i64) -> (bool, i64) {
     }
 }
 
-fn find_crab_weather(current_time: i64) -> (bool, i64) {
+pub fn find_crab_weather(current_time: i64) -> (bool, i64) {
     let current_pagos_weather = get_weather_by_time("Eureka Pagos", current_time);
     if current_pagos_weather == Weather::Fog {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
@@ -88,7 +88,7 @@ fn find_crab_weather(current_time: i64) -> (bool, i64) {
     }
 }
 
-fn find_cassie_weather(current_time: i64) -> (bool, i64) {
+pub fn find_cassie_weather(current_time: i64) -> (bool, i64) {
     let current_pagos_weather = get_weather_by_time("Eureka Pagos", current_time);
     if current_pagos_weather == Weather::Blizzards {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
@@ -223,7 +223,7 @@ pub fn handle_bozja_arisu(current_time: i64) -> String {
 }
 
 // Bozjan Southern Front
-fn find_bsf_dust(current_time: i64) -> (bool, i64) {
+pub fn find_bsf_dust(current_time: i64) -> (bool, i64) {
     let bsf_weather = get_weather_by_time("Bozjan Southern Front", current_time);
     if bsf_weather == Weather::DustStorms {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
@@ -235,7 +235,7 @@ fn find_bsf_dust(current_time: i64) -> (bool, i64) {
     }
 }
 
-fn find_bsf_wind(current_time: i64) -> (bool, i64) {
+pub fn find_bsf_wind(current_time: i64) -> (bool, i64) {
     let bsf_weather = get_weather_by_time("Bozjan Southern Front", current_time);
     if bsf_weather == Weather::Wind {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
@@ -247,7 +247,7 @@ fn find_bsf_wind(current_time: i64) -> (bool, i64) {
     }
 }
 
-fn find_bsf_thunder(current_time: i64) -> (bool, i64) {
+pub fn find_bsf_thunder(current_time: i64) -> (bool, i64) {
     let bsf_weather = get_weather_by_time("Bozjan Southern Front", current_time);
     if bsf_weather == Weather::Thunder {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
@@ -260,7 +260,7 @@ fn find_bsf_thunder(current_time: i64) -> (bool, i64) {
 }
 
 // Zadnor
-fn find_zadnor_snow(current_time: i64) -> (bool, i64) {
+pub fn find_zadnor_snow(current_time: i64) -> (bool, i64) {
     let zadnor_weather = get_weather_by_time("Zadnor", current_time);
     if zadnor_weather == Weather::Snow {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
@@ -271,7 +271,7 @@ fn find_zadnor_snow(current_time: i64) -> (bool, i64) {
     }
 }
 
-fn find_zadnor_wind(current_time: i64) -> (bool, i64) {
+pub fn find_zadnor_wind(current_time: i64) -> (bool, i64) {
     let zadnor_weather = get_weather_by_time("Zadnor", current_time);
     if zadnor_weather == Weather::Wind {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
@@ -282,7 +282,7 @@ fn find_zadnor_wind(current_time: i64) -> (bool, i64) {
     }
 }
 
-fn find_zadnor_rain(current_time: i64) -> (bool, i64) {
+pub fn find_zadnor_rain(current_time: i64) -> (bool, i64) {
     let zadnor_weather = get_weather_by_time("Zadnor", current_time);
     if zadnor_weather == Weather::Rain {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
@@ -293,7 +293,7 @@ fn find_zadnor_rain(current_time: i64) -> (bool, i64) {
     }
 }
 
-fn find_zadnor_thunder(current_time: i64) -> (bool, i64) {
+pub fn find_zadnor_thunder(current_time: i64) -> (bool, i64) {
     let zadnor_weather = get_weather_by_time("Zadnor", current_time);
     if zadnor_weather == Weather::Thunder {
         let time_until_next_cycle = calculate_current_weather_interval(current_time);
