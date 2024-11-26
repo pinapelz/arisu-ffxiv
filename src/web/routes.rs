@@ -12,16 +12,13 @@ pub async fn homepage() -> Html<&'static str> {
         <html>
         <head>
             <title>Arisu Tracker</title>
-            <link rel="stylesheet" href="/static/weather-card.css">
-
             <script src="https://unpkg.com/htmx.org"></script>
+            <script src="https://cdn.tailwindcss.com"></script>
+
         </head>
         <body>
-            <h1>Welcome to Arisu Tracker</h1>
             <p><a href="/eureka" hx-get="/eureka" hx-target="#content">Eureka Weather</a></p>
-            <p><a href="/bozja" hx-get="/bozja" hx-target="#content">Bozja Weather</a></p>
             <div id="content">
-                <p>Click on a link to load content dynamically.</p>
             </div>
         </body>
         </html>"##,
@@ -29,29 +26,36 @@ pub async fn homepage() -> Html<&'static str> {
 }
 
 fn format_weather_card(title: &str, is_active: bool, weather_time: i64) -> String {
-    if is_active {
-        format!(
-            r#"<div class="weather-card">
-                <h3>{}</h3>
-                <p>It's currently <strong>{}</strong> NOW!</p>
-                <p>Ends at: {}</p>
-            </div>"#,
-            title,
-            title,
-            format_unix_to_date(weather_time),
-        )
+    let status = if is_active {
+        format!("Currently Active")
     } else {
-        format!(
-            r#"<div class="weather-card">
-                <h3>{}</h3>
-                <p>Next occurrence:</p>
-                <p>{}</p>
-            </div>"#,
-            title,
-            format_unix_to_date(weather_time),
-        )
-    }
+        format!("Next Occurrence")
+    };
+
+    let time_info = format_unix_to_date(weather_time);
+
+    format!(
+        r#"<div class="weather-card border rounded-xl p-6 bg-gradient-to-br from-blue-50 to-blue-100 shadow-lg">
+            <div class="card-header flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-blue-800">{}</h3>
+                <span class="status-tag text-sm px-3 py-1 rounded-full bg-blue-200 text-blue-800">{}</span>
+            </div>
+            <div class="card-body">
+                <p class="text-gray-600">{}</p>
+                <p class="text-gray-800 font-bold mt-2">{}</p>
+            </div>
+        </div>"#,
+        title,
+        status,
+        if is_active {
+            "This weather is currently active and ongoing."
+        } else {
+            "This weather will occur next at the following time."
+        },
+        time_info
+    )
 }
+
 pub async fn get_eureka_weather_data() -> Html<String> {
     let current_time = Utc::now().timestamp();
 
