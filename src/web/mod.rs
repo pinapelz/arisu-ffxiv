@@ -7,13 +7,13 @@ use chrono::Utc;
 use std::net::SocketAddr;
 use tower_http::services::ServeDir;
 
-pub mod routes;
+pub mod weather_routes;
 
 pub async fn start_web_server() {
     let app = Router::new()
-        .route("/", get(routes::homepage))
-        .route("/eureka", get(routes::get_eureka_weather_data))
-        .route("/bozja", get(routes::bozja_handler))
+        .route("/", get(weather_routes::homepage))
+        .route("/eureka", get(weather_routes::get_eureka_weather_data))
+        .route("/bozja", get(weather_routes::bozja_handler))
         .nest_service("/static", ServeDir::new("src/web/static"));
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 8080));

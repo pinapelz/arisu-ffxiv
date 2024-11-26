@@ -3,7 +3,7 @@ use crate::zone_weather_timer::{
 };
 use axum::response::Html;
 use chrono::Utc;
-use utils::format_unix_to_date;
+use utils::{format_unix_to_date, format_unix_to_relative_timestr};
 mod utils;
 
 pub async fn homepage() -> Html<&'static str> {
@@ -14,9 +14,9 @@ pub async fn homepage() -> Html<&'static str> {
             <title>Arisu Tracker</title>
             <script src="https://unpkg.com/htmx.org"></script>
             <script src="https://cdn.tailwindcss.com"></script>
-
         </head>
         <body>
+            <script src="https://lds-img.finalfantasyxiv.com/pc/global/js/eorzeadb/loader.js?v3"></script>
             <p><a href="/eureka" hx-get="/eureka" hx-target="#content">Eureka Weather</a></p>
             <div id="content">
             </div>
@@ -25,33 +25,39 @@ pub async fn homepage() -> Html<&'static str> {
     )
 }
 
-fn format_weather_card(title: &str, is_active: bool, weather_time: i64) -> String {
-    let status = if is_active {
-        format!("Currently Active")
-    } else {
-        format!("Next Occurrence")
-    };
-
-    let time_info = format_unix_to_date(weather_time);
+fn format_single_weather_condition_card(
+    title: &str,
+    card_text: &str,
+    zone_name: &str,
+    is_active: bool,
+    weather_time: i64,
+) -> String {
+    let time_info = format_unix_to_relative_timestr(weather_time)
+        + " ("
+        + &format_unix_to_date(weather_time)
+        + ")";
 
     format!(
-        r#"<div class="weather-card border rounded-xl p-6 bg-gradient-to-br from-blue-50 to-blue-100 shadow-lg">
-            <div class="card-header flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-blue-800">{}</h3>
-                <span class="status-tag text-sm px-3 py-1 rounded-full bg-blue-200 text-blue-800">{}</span>
+        r#"<div class="weather-card border rounded-xl p-6 bg-gradient-to-br shadow-lg">
+        <div class="card-header flex items-start justify-between mb-4 flex-col text-left">
+            <h3 class="text-xl font-semibold">{}</h3>
+            <h2 class="text-lg font-semibold text-blue-800">{}</h2>
+            {}
             </div>
+
             <div class="card-body">
                 <p class="text-gray-600">{}</p>
                 <p class="text-gray-800 font-bold mt-2">{}</p>
             </div>
         </div>"#,
         title,
-        status,
+        zone_name,
         if is_active {
-            "This weather is currently active and ongoing."
+            r#"<span class="status-tag text-m align-left px-3 rounded-full bg-green-200">Active</span>"#
         } else {
-            "This weather will occur next at the following time."
+            r#"<span class="status-tag text-m align-left px-3 rounded-full bg-red-200">Inactive</span>"#
         },
+        card_text,
         time_info
     )
 }
@@ -63,13 +69,27 @@ pub async fn get_eureka_weather_data() -> Html<String> {
     let skoll_weather = find_skoll_weather(current_time);
     let crab_weather = find_crab_weather(current_time);
 
-    let cassie_card = format_weather_card(
-        "Cassie Weather (Thunder)",
+    let cassie_card = format_single_weather_condition_card(
+        "Cassie Weather (Blizzards)",
+        "Drops <a href=\"https://na.finalfantasyxiv.com/lodestone/playguide/db/item/88febc019e0/\" class=\"eorzeadb_link\">Cassie Earring</a>",
+        "Eureka Pagos",
         cassie_weather.0,
         cassie_weather.1,
     );
-    let skoll_card = format_weather_card("Skoll Weather (Rain)", skoll_weather.0, skoll_weather.1);
-    let crab_card = format_weather_card("Crab Weather (Fog)", crab_weather.0, crab_weather.1);
+    let skoll_card = format_single_weather_condition_card(
+        "Skoll Weather (Rain)",
+        "Drops Skoll Claws",
+        "Eureka Pyros",
+        skoll_weather.0,
+        skoll_weather.1,
+    );
+    let crab_card = format_single_weather_condition_card(
+        "King Arthro [Crab] Weather (Fog)",
+        "Drops Blitzring",
+        "Eureka Pagos",
+        crab_weather.0,
+        crab_weather.1,
+    );
 
     Html(format!(
         r#"
