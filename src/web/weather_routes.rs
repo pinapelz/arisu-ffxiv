@@ -13,10 +13,19 @@ fn format_single_weather_condition_card(
     is_active: bool,
     weather_time: i64,
 ) -> String {
-    let time_info = format_unix_to_relative_timestr(weather_time)
-        + " ("
-        + &format_unix_to_date(weather_time)
-        + ")";
+    let time_info = if is_active {
+        format!(
+            "ends {} ({})",
+            format_unix_to_relative_timestr(weather_time),
+            format_unix_to_date(weather_time)
+        )
+    } else {
+        format!(
+            "starts {} ({})",
+            format_unix_to_relative_timestr(weather_time),
+            format_unix_to_date(weather_time)
+        )
+    };
 
     format!(
         r#"<div class="weather-card border rounded-xl p-6 bg-gradient-to-br shadow-lg">
@@ -50,8 +59,19 @@ fn format_multi_weather_condition_card(
     let mut rows = String::new();
 
     for (condition, zone, is_active, time, tooltip_info) in conditions {
-        let time_info =
-            format_unix_to_relative_timestr(time) + " (" + &format_unix_to_date(time) + ")";
+        let time_info = if is_active {
+            format!(
+                "ends {} ({})",
+                format_unix_to_relative_timestr(time),
+                format_unix_to_date(time)
+            )
+        } else {
+            format!(
+                "starts {} ({})",
+                format_unix_to_relative_timestr(time),
+                format_unix_to_date(time)
+            )
+        };
         let status = if is_active {
             r#"<span class="status-tag text-xs px-2 py-1 rounded bg-green-200 text-green-800">Active</span>"#
         } else {
@@ -63,10 +83,10 @@ fn format_multi_weather_condition_card(
                         <div class="condition-info text-left items-center">
                             <span class="font-medium">{}</span>
                         </div>
-                        <span class="text-gray-600 mx-4">{}</span>
-                        <div class="flex items-center">
+                        <span class="text-gray-600 text-xl mx-4">{}</span>
+                        <div class="flex text-lg items-center">
                             {}
-                            <span class="ml-2 text-gray-800">{}</span>
+                            <span class="ml-2 text-m font-small text-gray-800">{}</span>
                         </div>
                         <div class="tooltip absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg px-3 py-2 shadow-lg z-10 bottom-full mb-1 w-64">
                             {}
