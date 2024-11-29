@@ -4,6 +4,10 @@ use clap::Parser;
 pub mod zone_weather_timer;
 use zone_weather_timer::{handle_bozja_arisu, handle_eureka_arisu};
 
+mod general_timers;
+use general_timers::handle_gate_message;
+
+mod time_utils;
 mod web;
 
 #[derive(Parser)]
@@ -27,6 +31,9 @@ async fn main() {
         }
         "bozja" => {
             println!("{}", handle_bozja_arisu(current_time_seconds));
+        }
+        "gate" => {
+            println!("{}", handle_gate_message(current_time_seconds));
         }
         "web" => {
             web::start_web_server().await;

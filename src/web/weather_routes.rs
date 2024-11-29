@@ -1,11 +1,10 @@
+use crate::time_utils::{format_unix_to_date, format_unix_to_relative_timestr};
 use crate::zone_weather_timer::{
     find_bsf_dust, find_bsf_thunder, find_bsf_wind, find_cassie_weather, find_crab_weather,
     find_skoll_weather, find_zadnor_rain, find_zadnor_snow, find_zadnor_thunder, find_zadnor_wind,
 };
 use axum::response::Html;
 use chrono::Utc;
-use utils::{format_unix_to_date, format_unix_to_relative_timestr};
-mod utils;
 
 fn format_single_weather_condition_card(
     title: &str,
